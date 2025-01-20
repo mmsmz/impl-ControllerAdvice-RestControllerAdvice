@@ -1,6 +1,7 @@
 package com.handler;
 
 import com.exception.InvalidFieldException;
+import com.exception.ServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +23,19 @@ public class StudentExceptionHandler {
 //    @ResponseBody
     public String handleEmptyFieldException(InvalidFieldException exception) {
         return exception.getMessage();
+    }
+
+    // Handle 500 exceptions from the service layer
+    @ExceptionHandler(ServiceException.class)
+    public ResponseEntity<String> handleServiceException(ServiceException ex) {
+        return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+    // Handle other generic exceptions
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGenericException(Exception ex) {
+        return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 /*    @ExceptionHandler
