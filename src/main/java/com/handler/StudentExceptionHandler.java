@@ -25,7 +25,7 @@ public class StudentExceptionHandler {
         return exception.getMessage();
     }
 
-    // Handle 500 exceptions from the service layer
+    // Handle 500 exceptions from the service layer - give a incorrect id number 4434343
     @ExceptionHandler(ServiceException.class)
     public ResponseEntity<String> handleServiceException(ServiceException ex) {
         return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
